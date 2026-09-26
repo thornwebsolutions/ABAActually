@@ -53,7 +53,12 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="container footer-bottom">
-      <p>&copy; {year} ABA Actually. Women-owned &amp; BCBA-led.</p>
+      <div>
+        <p>&copy; {year} ABA Actually. Women-owned &amp; BCBA-led.</p>
+        <p class="credit">
+          Built by <a href="https://www.thornwebsolutions.com/" target="_blank" rel="noopener">Chris</a>
+        </p>
+      </div>
       <p class="disclaimer">
         Content on this site is for educational purposes and isn't a substitute for individualized clinical advice.
       </p>
@@ -162,6 +167,18 @@ const year = new Date().getFullYear();
   }
   .footer-bottom p {
     margin: 0;
+  }
+  .credit {
+    margin-top: 4px !important;
+    color: var(--text-soft);
+  }
+  .credit a {
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+  }
+  .credit a:hover {
+    text-decoration: underline;
   }
   .disclaimer {
     color: var(--text-soft);

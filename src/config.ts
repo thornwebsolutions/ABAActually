@@ -6,11 +6,9 @@ export const SITE = {
     'Clear, practical, evidence-based information about autism and Applied Behavior Analysis — created by BCBAs, written for parents.',
   // TODO: confirm the client's public email address
   email: 'hello@abaactually.com',
-  // TODO: add the client's real profile URLs; remove any they don't use
   social: [
-    { label: 'Instagram', href: 'https://instagram.com/', icon: 'instagram' },
-    { label: 'Facebook', href: 'https://facebook.com/', icon: 'facebook' },
-    { label: 'TikTok', href: 'https://tiktok.com/', icon: 'tiktok' },
+    { label: 'Instagram', href: 'https://www.instagram.com/abaactually/', icon: 'instagram' },
+    { label: 'Facebook', href: 'https://www.facebook.com/share/1Ez3Q24kJT/?mibextid=wwXIfr', icon: 'facebook' },
   ],
 } as const;
 
