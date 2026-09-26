@@ -181,22 +181,29 @@ const pillars = [
   .hero-media {
     position: relative;
     justify-self: center;
-    width: min(100%, 540px);
+    width: min(100%, 580px);
+  }
+  /* Tilted pink card peeking out behind the photo */
+  .hero-media::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-lg);
+    background: var(--accent);
+    transform: rotate(-5deg) scale(1.02);
   }
   .photo-frame {
     position: relative;
-    border-radius: 46% 54% 42% 58% / 52% 44% 56% 48%;
+    border-radius: var(--radius-lg);
     overflow: hidden;
-    aspect-ratio: 1 / 1;
     border: 10px solid #fff;
     box-shadow: var(--shadow);
     background: #fff;
+    transform: rotate(1.5deg);
   }
   .photo-frame img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% 20%;
+    height: auto;
   }
   .float-chip {
     position: absolute;
@@ -218,11 +225,11 @@ const pillars = [
     color: var(--primary);
   }
   .chip-1 {
-    top: 12%;
-    left: -6%;
+    top: -6%;
+    left: -5%;
   }
   .chip-2 {
-    bottom: 10%;
+    bottom: -7%;
     right: -4%;
     animation-delay: -2.5s;
   }
