@@ -1,0 +1,179 @@
+---
+import { Image } from 'astro:assets';
+import badge from '../assets/badge.png';
+import Icon from './Icon.astro';
+import { NAV, SITE } from '../config';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 40 C 240 90, 480 0, 720 30 S 1200 80, 1440 25 V80 H0Z" fill="currentColor"></path>
+  </svg>
+  <div class="footer-body">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <Image src={badge} alt="" width={120} densities={[1, 2]} />
+        <p>Made to make ABA <span class="script">actually</span> make sense.</p>
+      </div>
+
+      <div>
+        <h2 class="footer-heading">Explore</h2>
+        <ul class="footer-links">
+          {
+            NAV.map((item) => (
+              <li>
+                <a href={item.href}>{item.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="footer-heading">Say hello</h2>
+        <ul class="footer-links">
+          <li>
+            <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          </li>
+        </ul>
+        <ul class="socials" aria-label="Social media">
+          {
+            SITE.social.map((s) => (
+              <li>
+                <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}>
+                  <Icon name={s.icon} />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>&copy; {year} ABA Actually. Women-owned &amp; BCBA-led.</p>
+      <p class="disclaimer">
+        Content on this site is for educational purposes and isn't a substitute for individualized clinical advice.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    color: var(--blush);
+    margin-top: auto;
+  }
+  .wave {
+    margin-bottom: -1px;
+  }
+  .footer-body {
+    background: var(--blush);
+    color: var(--text);
+    padding: 24px 0 32px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 40px;
+  }
+  .footer-brand img {
+    width: 120px;
+    height: auto;
+    margin-bottom: 16px;
+  }
+  .footer-brand p {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    max-width: 20em;
+  }
+  .footer-brand .script {
+    color: var(--primary);
+    font-style: normal;
+    font-size: 1.35em;
+  }
+  .footer-heading {
+    font-family: var(--font-sans);
+    color: var(--primary);
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 800;
+    margin-bottom: 16px;
+  }
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 8px;
+  }
+  .footer-links a {
+    color: var(--text);
+    font-weight: 600;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+  .footer-links a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+  }
+  .socials {
+    list-style: none;
+    display: flex;
+    gap: 12px;
+    padding: 0;
+    margin: 20px 0 0;
+  }
+  .socials a {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--primary);
+    box-shadow: 0 6px 16px -8px rgba(199, 30, 101, 0.35);
+    transition:
+      background 0.2s,
+      transform 0.2s;
+  }
+  .socials a:hover {
+    background: var(--primary);
+    color: var(--white);
+    transform: translateY(-2px);
+  }
+  .socials :global(svg) {
+    width: 20px;
+    height: 20px;
+  }
+  .footer-bottom {
+    border-top: 1px solid rgba(199, 30, 101, 0.18);
+    padding-top: 24px;
+    font-size: 0.9rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 32px;
+  }
+  .footer-bottom p {
+    margin: 0;
+  }
+  .disclaimer {
+    color: var(--text-soft);
+    max-width: 38em;
+  }
+
+  @media (max-width: 760px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

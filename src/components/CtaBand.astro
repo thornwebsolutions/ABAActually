@@ -1,0 +1,76 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  heading?: string;
+  text?: string;
+}
+const {
+  heading = 'Have a question?',
+  text = "Whether you're just starting to navigate a diagnosis or you're knee-deep in the ABA world, we'd love to hear from you.",
+} = Astro.props;
+---
+
+<section class="cta-wrap">
+  <div class="container">
+    <div class="cta" data-reveal>
+      <span class="blob b1" aria-hidden="true"></span>
+      <span class="blob b2" aria-hidden="true"></span>
+      <div class="cta-content">
+        <h2>
+          {heading} <span class="script">Let's talk.</span>
+        </h2>
+        <p>{text}</p>
+        <a class="btn btn--light" href="/contact">Get in touch <Icon name="arrow" /></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-wrap {
+    padding-block: var(--section-y);
+  }
+  .cta {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: var(--white);
+    padding: clamp(48px, 7vw, 88px) clamp(24px, 6vw, 80px);
+    text-align: center;
+  }
+  .cta-content {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    margin-inline: auto;
+  }
+  .cta h2 {
+    color: var(--white);
+  }
+  .cta .script {
+    color: var(--blush);
+    display: inline-block;
+    font-size: 1.2em;
+  }
+  .cta p {
+    font-size: 1.15rem;
+    opacity: 0.95;
+    margin-bottom: 32px;
+  }
+  .b1 {
+    width: 320px;
+    height: 320px;
+    background: rgba(255, 255, 255, 0.1);
+    top: -120px;
+    left: -80px;
+  }
+  .b2 {
+    width: 260px;
+    height: 260px;
+    background: rgba(244, 176, 207, 0.35);
+    bottom: -110px;
+    right: -60px;
+  }
+</style>

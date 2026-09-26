@@ -1,0 +1,244 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import CtaBand from '../components/CtaBand.astro';
+import founders from '../assets/founders.jpg';
+
+const team = [
+  { name: 'Sydney Horn', creds: 'MA, BCBA', role: 'Co-Founder' },
+  { name: 'Katlynn Burns', creds: 'M.Ed., BCBA', role: 'Co-Founder' },
+];
+
+const promises = [
+  'Clear explanations, without the clinical jargon',
+  'Practical strategies you can use in everyday life',
+  'Information grounded in research and evidence',
+  'Real answers from BCBAs who have been there with families',
+];
+---
+
+<Layout
+  title="About"
+  description="Meet Sydney Horn, MA, BCBA and Katlynn Burns, M.Ed., BCBA, the two BCBAs and friends behind ABA Actually."
+>
+  <section class="page-hero">
+    <span class="blob ab1" aria-hidden="true"></span>
+    <div class="container">
+      <p class="eyebrow">About us</p>
+      <h1>The BCBAs behind <span class="nowrap">ABA <span class="script">Actually</span></span></h1>
+      <p class="lead">Two BCBAs. One mission: making ABA <em>actually</em> make sense.</p>
+    </div>
+  </section>
+
+  <section class="team-section">
+    <div class="container">
+      <figure class="team-photo" data-reveal>
+        <Image
+          src={founders}
+          alt="Sydney Horn and Katlynn Burns, co-founders of ABA Actually"
+          widths={[600, 900, 1200]}
+          sizes="(max-width: 1000px) 92vw, 900px"
+          loading="eager"
+        />
+      </figure>
+      <ul class="team">
+        {
+          team.map((m) => (
+            <li class="member" data-reveal>
+              <p class="member-name">
+                {m.name}, <span>{m.creds}</span>
+              </p>
+              <p class="member-role">{m.role}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container why-grid">
+      <div data-reveal>
+        <p class="eyebrow">Why ABA Actually?</p>
+        <h2>We saw a need for parents</h2>
+      </div>
+      <div class="why-copy" data-reveal>
+        <p class="lead">
+          We're Sydney Horn, MA, BCBA and Katlynn Burns, M.Ed., BCBA: two BCBAs and friends who saw a need for parents.
+          A place where parents could find clear, practical, evidence-based information about autism and Applied
+          Behavior Analysis.
+        </p>
+        <p class="pull">That's why we created ABA Actually.</p>
+        <p>
+          Our goal is simple: to help bridge the gap between clinical knowledge and parents navigating an autism
+          diagnosis. We give families information, answers, and resources they can actually understand and use.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--blush">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Our promise to parents</p>
+        <h2>What you can count on</h2>
+      </div>
+      <ul class="promises">
+        {
+          promises.map((p, i) => (
+            <li class="card" data-reveal style={`transition-delay:${i * 80}ms`}>
+              <span class="check">
+                <Icon name="check" />
+              </span>
+              {p}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand heading="Want to connect with us?" />
+</Layout>
+
+<style>
+  .page-hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--blush);
+    text-align: center;
+    padding: clamp(56px, 8vw, 104px) 0 clamp(120px, 16vw, 200px);
+  }
+  .page-hero .container {
+    position: relative;
+    z-index: 1;
+  }
+  .page-hero .lead {
+    margin-inline: auto;
+    font-family: var(--font-serif);
+    font-style: italic;
+  }
+  .nowrap {
+    white-space: nowrap;
+  }
+  .ab1 {
+    width: 420px;
+    height: 420px;
+    background: var(--accent);
+    opacity: 0.4;
+    top: -200px;
+    left: -140px;
+  }
+
+  .team-section {
+    margin-top: clamp(-160px, -12vw, -90px);
+    position: relative;
+    z-index: 2;
+  }
+  .team-photo {
+    margin: 0 auto;
+    max-width: 900px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 10px solid #fff;
+    outline: 3px solid var(--accent);
+    box-shadow: var(--shadow);
+  }
+  .team-photo img {
+    width: 100%;
+  }
+  .team {
+    list-style: none;
+    padding: 0;
+    margin: 40px auto 0;
+    max-width: 900px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    text-align: center;
+  }
+  .member-name {
+    font-family: var(--font-serif);
+    font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+    margin: 0 0 4px;
+    color: var(--text);
+  }
+  .member-name span {
+    white-space: nowrap;
+  }
+  .member-role {
+    display: inline-block;
+    margin: 0;
+    color: var(--secondary);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    padding-bottom: 8px;
+    border-bottom: 3px solid var(--secondary);
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: clamp(32px, 6vw, 80px);
+  }
+  .why-copy .lead {
+    color: var(--text);
+    max-width: none;
+  }
+  .pull {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+    color: var(--secondary);
+    margin: 32px 0;
+    padding-left: 24px;
+    border-left: 4px solid var(--accent);
+    line-height: 1.3;
+  }
+
+  .promises {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 920px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .promises li {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 24px 28px;
+  }
+  .check {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--blush);
+    color: var(--primary);
+  }
+  .check :global(svg) {
+    width: 26px;
+    height: 26px;
+  }
+
+  @media (max-width: 760px) {
+    .team,
+    .why-grid,
+    .promises {
+      grid-template-columns: 1fr;
+    }
+    .why-grid {
+      text-align: left;
+    }
+  }
+</style>

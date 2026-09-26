@@ -1,0 +1,209 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo-wordmark.png';
+import { NAV } from '../config';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="brand" aria-label="ABA Actually home">
+      <Image src={logo} alt="ABA Actually" width={120} densities={[1, 2]} loading="eager" />
+    </a>
+
+    <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">
+      <span class="sr-only">Menu</span>
+      <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul>
+        {
+          NAV.filter((item) => item.href !== '/contact').map((item) => (
+            <li>
+              <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a href="/contact" class="btn nav-cta" aria-current={isActive('/contact') ? 'page' : undefined}>
+        Get in touch
+      </a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: saturate(160%) blur(12px);
+    -webkit-backdrop-filter: saturate(160%) blur(12px);
+    border-bottom: 1px solid transparent;
+    transition:
+      border-color 0.3s,
+      box-shadow 0.3s;
+  }
+  :global(.scrolled) .site-header {
+    border-bottom-color: var(--blush);
+    box-shadow: 0 6px 24px -18px rgba(73, 67, 70, 0.4);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 84px;
+  }
+
+  .brand img {
+    width: 120px;
+    height: auto;
+  }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+  }
+  .site-nav ul {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .site-nav ul a {
+    position: relative;
+    color: var(--text);
+    font-weight: 700;
+    text-decoration: none;
+    padding: 6px 0;
+  }
+  .site-nav ul a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    border-radius: 3px;
+    background: var(--secondary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .site-nav ul a:hover::after,
+  .site-nav ul a[aria-current='page']::after {
+    transform: scaleX(1);
+  }
+  .site-nav ul a[aria-current='page'] {
+    color: var(--primary);
+  }
+  .nav-cta {
+    padding: 12px 24px;
+    box-shadow: none;
+  }
+
+  .menu-toggle {
+    display: none;
+    width: 48px;
+    height: 48px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--blush);
+    color: var(--primary);
+    cursor: pointer;
+  }
+  .bars {
+    display: grid;
+    gap: 5px;
+    justify-items: center;
+  }
+  .bars span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition:
+      transform 0.25s,
+      opacity 0.25s;
+  }
+  .menu-toggle[aria-expanded='true'] .bars span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .menu-toggle[aria-expanded='true'] .bars span:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-toggle[aria-expanded='true'] .bars span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  @media (max-width: 820px) {
+    .header-inner {
+      min-height: 72px;
+    }
+    .brand img {
+      width: 96px;
+    }
+    .menu-toggle {
+      display: grid;
+      place-items: center;
+    }
+    .site-nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 20px;
+      padding: 12px var(--gutter) 28px;
+      background: var(--white);
+      border-bottom: 1px solid var(--blush);
+      box-shadow: 0 24px 30px -24px rgba(73, 67, 70, 0.35);
+      display: none;
+    }
+    .site-nav.open {
+      display: flex;
+    }
+    .site-nav ul {
+      flex-direction: column;
+      gap: 0;
+    }
+    .site-nav ul a {
+      display: block;
+      padding: 14px 0;
+      font-size: 1.15rem;
+      border-bottom: 1px solid var(--blush);
+    }
+    .site-nav ul a::after {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const nav = document.getElementById('site-nav');
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') !== 'true';
+    toggle.setAttribute('aria-expanded', String(open));
+    nav?.classList.toggle('open', open);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+      toggle.setAttribute('aria-expanded', 'false');
+      nav?.classList.remove('open');
+      toggle.focus();
+    }
+  });
+</script>

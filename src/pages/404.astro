@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<Layout title="Page not found">
+  <section class="nf">
+    <div class="container">
+      <p class="eyebrow">404</p>
+      <h1>Oops, that page <span class="script">actually</span> doesn't exist.</h1>
+      <p class="lead">It may have moved, or the link might be a little off.</p>
+      <a class="btn" href="/">Back to home <Icon name="arrow" /></a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .nf {
+    background: var(--blush);
+    text-align: center;
+    padding: clamp(80px, 12vw, 160px) 0;
+  }
+  .lead {
+    margin: 0 auto 32px;
+  }
+</style>

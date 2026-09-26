@@ -1,0 +1,104 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import badge from '../assets/badge.png';
+---
+
+<Layout title="Services" description="ABA Actually services are coming soon. Get in touch to hear first when they launch.">
+  <section class="soon">
+    <span class="blob sb1" aria-hidden="true"></span>
+    <span class="blob sb2" aria-hidden="true"></span>
+    <span class="blob sb3" aria-hidden="true"></span>
+
+    <div class="container soon-inner">
+      <div class="badge-wrap">
+        <Image src={badge} alt="" widths={[240, 480]} sizes="240px" loading="eager" />
+      </div>
+
+      <p class="eyebrow">Services</p>
+      <h1>Coming <span class="script">soon!</span></h1>
+      <p class="lead">
+        We're busy building services that make ABA <em>actually</em> make sense for families. They'll be
+        here before you know it.
+      </p>
+      <p>Want to be the first to know when they launch, or have a question in the meantime?</p>
+      <div class="btn-row">
+        <a class="btn" href="/contact">Get in touch <Icon name="arrow" /></a>
+        <a class="btn btn--outline" href="/about">Meet the founders</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .soon {
+    position: relative;
+    overflow: hidden;
+    background: var(--blush);
+    padding: clamp(64px, 10vw, 128px) 0 clamp(80px, 12vw, 144px);
+    text-align: center;
+  }
+  .soon-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+  }
+  .badge-wrap {
+    width: 200px;
+    margin: 0 auto 32px;
+    animation: spin-in 1s cubic-bezier(0.2, 0.8, 0.2, 1.2) both;
+  }
+  .badge-wrap img {
+    width: 100%;
+    filter: drop-shadow(0 18px 30px rgba(199, 30, 101, 0.25));
+  }
+  @keyframes spin-in {
+    from {
+      opacity: 0;
+      transform: scale(0.7) rotate(-20deg);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  h1 .script {
+    font-size: 1.25em;
+  }
+  .lead {
+    margin-inline: auto;
+    color: var(--text);
+  }
+  .soon p:not(.lead):not(.eyebrow) {
+    color: var(--text-soft);
+  }
+  .btn-row {
+    justify-content: center;
+    margin-top: 32px;
+  }
+  .sb1 {
+    width: 380px;
+    height: 380px;
+    background: var(--accent);
+    opacity: 0.45;
+    top: -140px;
+    right: -100px;
+  }
+  .sb2 {
+    width: 300px;
+    height: 300px;
+    background: #fff;
+    opacity: 0.65;
+    bottom: -120px;
+    left: -80px;
+  }
+  .sb3 {
+    width: 90px;
+    height: 90px;
+    background: var(--secondary);
+    opacity: 0.25;
+    top: 30%;
+    left: 8%;
+  }
+</style>
